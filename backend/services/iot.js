@@ -28,7 +28,17 @@ module.exports = {
   },
   getDevicesService: async ( email ) => {
     try{
-      const response = await pool.query(`SELECT * FROM iot_device WHERE email = $1`,[email])
+      const response = await pool.query(`SELECT *
+      FROM (
+          SELECT 
+              iot_data.*,
+              iot_device.email,
+              ROW_NUMBER() OVER (PARTITION BY iot_device.id ORDER BY iot_data.timestamp DESC) AS rn
+          FROM iot_data
+          JOIN iot_device ON iot_device.id = iot_data.id
+          WHERE iot_device.email = $1
+      ) AS ranked
+      WHERE rn = 1;`,[email])
       return response.rows
     }catch(err){
       throw err
