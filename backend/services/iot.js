@@ -1,20 +1,14 @@
 const { pool } = require('../config/database')
+const { getUserService } = require('./auth')
 
 module.exports = {
-  createRecordService: async (data, id) => {
+  createRecordService: async (data, id, email, socket) => {
     try {
-      const username = pool.query(
-        `SELECT iot_user.username FROM iot_device WHERE iot_device.id = $1
-        JOIN iot_user ON iot_device.email = iot_user.email
-        `
-      )
-      pool.query('INSERT INTO iot_data(data,id,username) VALUES ($1,$2.$3)', [data, id, username])
-      let socket = req.app.get('socket')
-      socket.emit(username, {data: data, id: id})
-      res.sendStatus(200)
+      pool.query('INSERT INTO iot_data(id,data) VALUES ($1,$2)', [id, data])
+      console.log(email)
+      socket.emit(email, {data: data, id: id})
     } catch (err) {
       console.log(err)
-      res.sendStatus(500)
     }
   },
   registerDeviceService : async ( id, email ) => {
@@ -38,6 +32,14 @@ module.exports = {
       return response.rows
     }catch(err){
       throw err
+    }
+  },
+  getUserService: async ( id ) => {
+    try {
+      const response = await pool.query(`SELECT iot_user.email FROM iot_user JOIN iot_device ON iot_device.email = iot_user.email WHERE iot_device.id = $1`, [id])
+      return response.rows[0].email
+    } catch {
+      console.log(err)
     }
   }
 }

@@ -1,8 +1,15 @@
-const { createRecordService, registerDeviceService, getDevicesService } = require('../services/iot')
+const { createRecordService, registerDeviceService, getDevicesService, getUserService } = require('../services/iot')
 module.exports = {
   createRecord: async (req, res) => {
     const { data, id } = req.body
-    await createRecordService(data, id)
+    let socket = req.app.get('socket')
+    let email = await getUserService(id)
+    try {
+      await createRecordService(data, id, email, socket)
+      res.sendStatus(200)
+    } catch {
+      res.sendStatus(500)
+    }
   },
   registerDevice: async (req,res) => {
     const { id , email } = req.body

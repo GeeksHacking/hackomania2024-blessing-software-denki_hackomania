@@ -19,6 +19,9 @@
   const getDevices =  async () => {
     const response = await fetch(`${backend_uri}:3000/api/iot/getDevices?email=${session?.user?.email}`)
     devices = await response.json()
+    devices.forEach((device) => {
+        device.data = null
+    })
   }
   onMount(async () => {
     if (session != undefined) {
@@ -43,6 +46,7 @@
         <div class = 'flex flex-row justify-between md:min-w-[70%] md:max-w-[70%] bg-gray-50 lg:min-w-[50%] lg:max-w-[50%] my-[0.5rem] rounded-lg shadow-sm hover:shadow-md lg:my-[1rem]'>
             <span class = 'ml-[3rem] my-auto justify-center text-center font-semibold align-middle '>
                 ID: {device.id}
+                data: {device.data}
             </span>
             <img width="30%" height="100%" src = {DeviceImage} alt = "image of "/>
         </div>
