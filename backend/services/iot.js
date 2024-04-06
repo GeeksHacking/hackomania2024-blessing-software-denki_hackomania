@@ -51,5 +51,14 @@ module.exports = {
     } catch {
       console.log(err)
     }
+  },
+
+  getTotalUsed : async ( email ) => {
+    try {
+       const response = await pool.query(`select SUM(data) from iot_device JOIN iot_data ON iot_device.id = iot_data.id WHERE iot_device.email = $1`,[email])
+       return response.rows[0]
+    } catch (error) {
+      console.log(error)
+    }
   }
 }

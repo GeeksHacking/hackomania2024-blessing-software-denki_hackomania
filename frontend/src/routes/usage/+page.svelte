@@ -1,5 +1,5 @@
 <script lang ="ts">
-
+    
 import { onMount, onDestroy} from 'svelte'
   import { Spinner } from 'flowbite-svelte';
   import { page } from '$app/stores';
@@ -8,8 +8,7 @@ import { onMount, onDestroy} from 'svelte'
   let account;
   let notLoaded = true
   let graphGenerated = false
-  let pdf 
-
+  let pdfURL = "http://18.141.136.158:8000/generateReport/A123"
   const getProfile = async () => {
     const response = await fetch(
       `${backend_uri}:3000/api/auth/getUser?email=${session?.user?.email}`
@@ -19,18 +18,25 @@ import { onMount, onDestroy} from 'svelte'
     notLoaded = false
   };
 
-  const getReport = async() => {
-    const response = await fetch(`${backend_uri}:8000/generateReport/overall`)
-  }
+//   const getReport = async() => {
+//     const response = await fetch(`http://18.141.136.158:8000/generateReport/A123`,{
+//         method:'GET'
+//     })
+//     console.log(response)
+//     graphGenerated = true
+//   }
 
   onMount(async () => {
 		if (session != undefined) {
 			await getProfile();
             notLoaded = false
+            // await getReport();
 		} else {
 			notLoaded = false;
 		}
 	});
+
+
 
 </script>
 
@@ -38,5 +44,6 @@ import { onMount, onDestroy} from 'svelte'
     <Spinner color = 'blue'/>
     {:else}
     <h1 class = "font-semibold text-2xl text-center pt-[2rem]"> overall usage report </h1>
+    <iframe src={`https://drive.google.com/viewerng/viewer?embedded=true&url=${pdfURL}`} style="width:718px; height:700px;" frameborder="0"></iframe>
 
 {/if}

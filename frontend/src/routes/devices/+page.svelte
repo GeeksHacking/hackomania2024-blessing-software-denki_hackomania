@@ -20,7 +20,10 @@
     const response = await fetch(`${backend_uri}:3000/api/iot/getDevices?email=${session?.user?.email}`)
     devices = await response.json()
     devices.forEach((device) => {
-        device.data = null
+        if(!device.data){
+
+            device.data = null
+        }
     })
   }
   onMount(async () => {

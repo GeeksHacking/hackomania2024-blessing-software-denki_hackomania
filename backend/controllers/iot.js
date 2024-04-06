@@ -1,4 +1,4 @@
-const { createRecordService, registerDeviceService, getDevicesService, getUserService } = require('../services/iot')
+const { createRecordService, registerDeviceService, getDevicesService, getUserService, getTotalUsed } = require('../services/iot')
 module.exports = {
   createRecord: async (req, res) => {
     const { data, id } = req.body
@@ -31,6 +31,17 @@ module.exports = {
       const response = await getDevicesService(email)
       res.send(response)
     }catch(err){
+      res.sendStatus(500)
+    }
+  },
+
+  getSum : async ( req , res ) => {
+    const { email } = req.query
+    try {
+      const response = await getTotalUsed(email)
+      console.log(response)
+      res.send(response)
+    } catch (error) {
       res.sendStatus(500)
     }
   }
