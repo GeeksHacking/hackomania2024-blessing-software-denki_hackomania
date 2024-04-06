@@ -26,7 +26,7 @@ module.exports = {
       const valid = check(password, user.password)
       if (valid) {
         const token = jwt.sign({email: email, username: user.username}, secret)
-        user.pwd = null
+        user.password = null
         return {user: user, token: token}
       } else {
         throw 401

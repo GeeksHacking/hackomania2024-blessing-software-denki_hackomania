@@ -38,11 +38,11 @@
 
 <nav class ="flex">
   <div class = "hidden md:flex bg-white drop-shadow-md py-[1.5rem] w-full flex-row justify-between ">
-    <a href = "/" class = ' text-sky-600 text-xl font-semibold ml-[2rem]'>denki</a>
+    <a href = "/" class = ' text-sky-600 text-2xl font-bold ml-[2rem]'>denki</a>
     <div class = 'flex flex-row justify-evenly min-w-[20rem]'>
-      <a href = "/devices" class = ' text-xl '> devices </a>
-      <a href = "/usage" class = ' text-xl   '> usage </a>
-      <a href = "/profile" class = ' text-xl '> profile </a>
+      <a href = "/devices" class = 'text-lg font-semibold'>devices</a>
+      <a href = "/usage" class = 'text-lg font-semibold'>usage</a>
+      <a href = "/profile" class = 'text-lg font-semibold'>profile</a>
     </div>
   </div>
   {#if !menuOpen }

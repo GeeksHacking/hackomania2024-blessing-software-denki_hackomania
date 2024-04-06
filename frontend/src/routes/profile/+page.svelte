@@ -13,6 +13,7 @@
     );
     const parsed = await response.json();
     account = parsed.rows[0]
+		notLoaded = false
   };
 
   let notLoaded = true
@@ -20,14 +21,15 @@
 	onMount(async () => {
 		if (session != undefined) {
 			getProfile();
+		} else {
+			notLoaded = false;
 		}
-		notLoaded = false;
 	});
 </script>
 
 {#if notLoaded}
 	<div class="flex w-full h-[32rem] pt-5 items-center justify-center bg-zinc-100 dark:bg-zinc-800">
-		<Spinner color="purple" />
+		<Spinner color="blue" />
 	</div>
 {:else}
 	<div class="bg-zinc-100 dark:bg-zinc-800 pb-32 pt-32">
