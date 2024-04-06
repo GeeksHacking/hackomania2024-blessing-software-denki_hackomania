@@ -31,6 +31,11 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@types/jsonwebtoken": "^9.0.6",
+		"@types/node-fetch": "^2.6.11",
+		"autoprefixer": "^10.4.19",
+		"jsonwebtoken": "^9.0.2",
+		"node-fetch": "^3.3.2",
 		"@fontsource-variable/public-sans": "^5.0.18",
 		"autoprefixer": "^10.4.19",
 		"flowbite": "^2.3.0",

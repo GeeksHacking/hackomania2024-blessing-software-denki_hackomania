@@ -3,6 +3,20 @@
   import "@fontsource-variable/public-sans";
   import Menu from "svelte-material-icons/Menu.svelte";
 
+  const detectColorScheme = () => {
+    var theme="light";    //default
+
+    if(localStorage.getItem("theme") == "dark"){
+      var theme = "dark";
+    }
+
+    if (theme=="dark") {
+      document.documentElement.setAttribute("class", "dark");
+    } else {
+      document.documentElement.setAttribute("class", "light");
+    }
+  }
+  
   let menuOpen  = false
 
 	const openMenu = () => {
@@ -49,4 +63,5 @@
   </button>
 </div>
 {/if}
+
 <slot />
