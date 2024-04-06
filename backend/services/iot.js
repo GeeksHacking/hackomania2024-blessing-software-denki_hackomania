@@ -16,5 +16,20 @@ module.exports = {
       console.log(err)
       res.sendStatus(500)
     }
+  },
+  registerDeviceService : async ( id, email ) => {
+    try{
+      const response = await pool.query(`INSERT INTO iot_device(id,email) VALUES ($1,$2)`,[id,email])
+      return response
+    }catch(err){
+
+      if(err.code = '23505'){
+        let response = 'Duplicate'
+        return response
+      }else{
+
+        throw err
+      }
+    }
   }
 }

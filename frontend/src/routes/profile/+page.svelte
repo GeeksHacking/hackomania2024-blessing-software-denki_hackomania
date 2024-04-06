@@ -32,7 +32,7 @@
 		<Spinner color="blue" />
 	</div>
 {:else}
-	<div class="bg-zinc-100 dark:bg-zinc-800 pb-32 pt-32">
+	<div class="bg-zinc-100 dark:bg-zinc-800 pb-32">
 		<div class="font-albert max-w-xl text-zinc-800 dark:text-zinc-100">
 			{#if session}
 				<div class="ml-6 mr-6 md:mr-0 md:ml-24 flex flex-col">
@@ -48,7 +48,7 @@
 					<h3 class="text-sm mt-2">{session?.user?.email}</h3>
 						<form method="POST" action="?/signOut">
 							<button
-								class="mt-6 p-1 w-[20%] bg-[#E54C38] hover:bg-[#C23A22] rounded-full text-zinc-100"
+								class="mt-6 p-1 w-[20%] bg-sky-500 hover:bg-sky-700 rounded-full text-zinc-100"
 							>
 								<div>Sign Out</div>
 							</button>
@@ -72,7 +72,7 @@
 						class="border-2 border-zinc-200 rounded-full focus:border-purple-400 outline-none select-none h-[2rem] mr-2 dark:text-zinc-800"
 					/>
 					<button
-						class="py-1 bg-purple-400 hover:bg-purple-500 font-medium text-white rounded-full mt-6"
+						class="py-1 bg-sky-600 hover:bg-sky-700 font-medium text-white rounded-full mt-6"
 						type="submit">Sign in</button
 					>
 					<div class="text-zinc-400 font-medium text-sm mx-6 md:mx-24 mt-8 text-center">
