@@ -1,11 +1,9 @@
-
 <script>
     import { CirclePlusSolid } from 'flowbite-svelte-icons';
     import { Modal } from 'flowbite-svelte'
     import { Button, Dropdown, DropdownItem } from 'flowbite-svelte';
     import QRIcon from '../assets/qr-code-svgrepo-com.svg'
     import Dashboard from '../components/dashboard.svelte';
-
 </script>
 
 

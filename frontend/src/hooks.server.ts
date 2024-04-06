@@ -10,7 +10,7 @@ const emailPassword: Handle = async ({ event, resolve }) => {
     const token = cookie.split('=')[1]
     const decode = jwt.decode(token as string) as JwtPayload
     const { email, username } = decode
-    event.locals.session = {user: {email, username }}
+    event.locals.session = {user: { email, username }}
   }
   if (event.url.search == '?/signOut') {
     event.locals.session = null
@@ -20,3 +20,11 @@ const emailPassword: Handle = async ({ event, resolve }) => {
 }
 
 export const handle = emailPassword
+
+/** @type {import('@sveltejs/kit').HandleFetch} */
+export async function handleFetch({ event, request, fetch }) {
+	request.headers.set('cookie', String(event.request.headers.get('cookie')));
+
+	return fetch(request);
+
+}

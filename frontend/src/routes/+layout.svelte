@@ -2,6 +2,7 @@
   import "../app.css";
   import "@fontsource-variable/public-sans";
   import Menu from "svelte-material-icons/Menu.svelte";
+  import { onMount } from "svelte";
 
   const detectColorScheme = () => {
     var theme="light";    //default
@@ -22,6 +23,10 @@
 	const openMenu = () => {
 		menuOpen = true
 	}
+
+  onMount(() => {
+    detectColorScheme()
+  })
 
 </script>
 
