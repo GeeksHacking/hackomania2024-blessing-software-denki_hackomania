@@ -23,7 +23,7 @@ module.exports = {
     try {
       const result = await pool.query('SELECT * FROM iot_user WHERE email = $1', [email])
       const user = result.rows[0]
-      const valid = check(password, user.pwd)
+      const valid = check(password, user.password)
       if (valid) {
         const token = jwt.sign({email: email, username: user.username}, secret)
         user.pwd = null
@@ -32,6 +32,7 @@ module.exports = {
         throw 401
       }
     } catch (err) {
+      console.log(err)
       throw err
     }
   },
