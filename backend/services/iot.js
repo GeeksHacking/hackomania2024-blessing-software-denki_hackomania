@@ -31,5 +31,13 @@ module.exports = {
         throw err
       }
     }
+  },
+  getDevicesService: async ( email ) => {
+    try{
+      const response = await pool.query(`SELECT * FROM iot_device WHERE email = $1`,[email])
+      return response.rows
+    }catch(err){
+      throw err
+    }
   }
 }

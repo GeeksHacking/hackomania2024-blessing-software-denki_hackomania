@@ -4,13 +4,18 @@
     import { Button, Dropdown, DropdownItem } from 'flowbite-svelte';
     import QRIcon from '../assets/qr-code-svgrepo-com.svg'
     import Dashboard from '../components/dashboard.svelte';
+    import DeviceDash from '../components/deviceDash.svelte';
 </script>
 
 
 <h1 class = 'text-center text-5xl py-5'> welcome back to <span class = 'text-sky-600'>denki.</span></h1>
 
 <div class = 'flex justify-center'>
-    <Dashboard />
+    <div class = 'flex flex-col'>
+        <Dashboard />
+        <Dashboard />
+    </div>
+
 </div>
 
 <Button>

@@ -1,4 +1,4 @@
-const { createRecordService, registerDeviceService } = require('../services/iot')
+const { createRecordService, registerDeviceService, getDevicesService } = require('../services/iot')
 module.exports = {
   createRecord: async (req, res) => {
     const { data, id } = req.body
@@ -6,7 +6,6 @@ module.exports = {
   },
   registerDevice: async (req,res) => {
     const { id , email } = req.body
-    console.log(req)
     try{
       const response = await registerDeviceService(id,email)
       if(response == 'Duplicate'){
@@ -15,6 +14,15 @@ module.exports = {
         res.sendStatus(201)
 
       }
+    }catch(err){
+      res.sendStatus(500)
+    }
+  },
+  getDevices: async (req,res)=> {
+    const { email } = req.query
+    try{
+      const response = await getDevicesService(email)
+      res.send(response)
     }catch(err){
       res.sendStatus(500)
     }

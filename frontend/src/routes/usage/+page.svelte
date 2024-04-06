@@ -1,67 +1,42 @@
-<script>
-  import { Html5Qrcode } from 'html5-qrcode'
-  import { onMount, onDestroy } from 'svelte'
+<script lang ="ts">
 
-  let scanning = false
+import { onMount, onDestroy} from 'svelte'
+  import { Spinner } from 'flowbite-svelte';
+  import { page } from '$app/stores';
+  export let data
+  let { backend_uri, session } = data;
+  let account;
+  let notLoaded = true
+  let graphGenerated = false
+  let pdf 
 
-  let html5Qrcode
+  const getProfile = async () => {
+    const response = await fetch(
+      `${backend_uri}:3000/api/auth/getUser?email=${session?.user?.email}`
+    );
+    const parsed = await response.json();
+    account = parsed.rows[0]
+    notLoaded = false
+  };
 
-  onMount(async()=>{
-    await init()
-    await start()
-  })
-
-  async function init() {
-      html5Qrcode = new Html5Qrcode('reader')
+  const getReport = async() => {
+    const response = await fetch(`${backend_uri}:8000/generateReport/overall`)
   }
 
-  async function start() {
-      html5Qrcode.start(
-          { facingMode: 'environment' },
-          {
-              fps: 10,
-              qrbox: { width: 200, height:200 },
-          },
-          onScanSuccess,
-          onScanFailure
-      )
-      scanning = true
-  }
+  onMount(async () => {
+		if (session != undefined) {
+			await getProfile();
+            notLoaded = false
+		} else {
+			notLoaded = false;
+		}
+	});
 
-  async function stop() {
-      await html5Qrcode.stop()
-      scanning = false
-  }
-
-  function onScanSuccess(decodedText, decodedResult) {
-      alert(`Code matched = ${decodedText}`)
-      console.log(decodedResult)
-  }
-
-  function onScanFailure(error) {
-      console.warn(`Code scan error = ${error}`)
-  }
 </script>
 
-<style>
-  main {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-  }
-  reader {
-      width: 100%;
-      min-height: 80%;
-      background-color: black;
-  }
-</style>
+{#if notLoaded}
+    <Spinner color = 'blue'/>
+    {:else}
+    <h1 class = "font-semibold text-2xl text-center pt-[2rem]"> overall usage report </h1>
 
-<main>
-  <reader  id="reader"/>
-  {#if scanning}
-      <button on:click={stop}>stop</button>
-  {:else}
-      <button on:click={start}>start</button>
-  {/if}
-</main>
+{/if}

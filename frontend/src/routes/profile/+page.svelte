@@ -32,7 +32,7 @@
 		<Spinner color="blue" />
 	</div>
 {:else}
-	<div class="bg-zinc-100 dark:bg-zinc-800 pb-32">
+	<div class="bg-zinc-100 flex flex-col justify-center dark:bg-zinc-800 pb-32 pt-[8rem]">
 		<div class="font-albert max-w-xl text-zinc-800 dark:text-zinc-100">
 			{#if session}
 				<div class="ml-6 mr-6 md:mr-0 md:ml-24 flex flex-col">

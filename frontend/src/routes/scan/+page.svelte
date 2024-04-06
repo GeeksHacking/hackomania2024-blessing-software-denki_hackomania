@@ -92,6 +92,7 @@
                 email:session?.user?.email
             })
           })
+          console.log(registerDevice)
           if(registerDevice.status == 409){
             alert('device already registered!')
           }

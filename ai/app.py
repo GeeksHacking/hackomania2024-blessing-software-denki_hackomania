@@ -30,7 +30,7 @@ def plot(x, y, name: str):
 
 app = Flask(__name__)
 
-@app.route('/generateReport/<id>', methods=['POST'])
+@app.route('/generateReport/<id>', methods=['GET'])
 def make_report(id):
     # cur.execute("SELECT * FROM test_data, user where user.id = %s", (id,))
     cur.execute("SELECT * FROM test_data")
