@@ -1,12 +1,8 @@
-
 <script>
     import { CirclePlusSolid } from 'flowbite-svelte-icons';
     import { Modal } from 'flowbite-svelte'
     import { Button, Dropdown, DropdownItem } from 'flowbite-svelte';
     import QRIcon from '../assets/qr-code-svgrepo-com.svg'
-
-    const QrScanner = require('frontend/node_modules/qr-scanner/qr-scanner.umd.min.js');
-
 </script>
 
 

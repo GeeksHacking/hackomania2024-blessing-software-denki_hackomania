@@ -2,6 +2,7 @@
   import "../app.css";
   import "@fontsource-variable/public-sans";
   import Menu from "svelte-material-icons/Menu.svelte";
+  import { onMount } from "svelte";
 
   const detectColorScheme = () => {
     var theme="light";    //default
@@ -23,6 +24,10 @@
 		menuOpen = true
 	}
 
+  onMount(() => {
+    detectColorScheme()
+  })
+
 </script>
 
 <style>
@@ -35,9 +40,9 @@
   <div class = "hidden md:flex bg-white drop-shadow-md py-[1.5rem] w-full flex-row justify-between ">
     <a href = "/" class = ' text-sky-600 text-xl font-semibold ml-[2rem]'>denki</a>
     <div class = 'flex flex-row justify-evenly min-w-[20rem]'>
-      <a href = "/" class = ' text-xl '> devices </a>
-      <a href = "/" class = ' text-xl   '> usage </a>
-      <a href = "/" class = ' text-xl '> profile </a>
+      <a href = "/" class = 'text-xl'> devices </a>
+      <a href = "/" class = 'text-xl'> usage </a>
+      <a href = "/profile" class = 'text-xl'> profile </a>
     </div>
   </div>
   {#if !menuOpen }
