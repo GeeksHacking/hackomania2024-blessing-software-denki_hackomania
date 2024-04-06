@@ -1,7 +1,7 @@
 <script>
     import {onMount} from 'svelte'
     import { page } from '$app/stores';
-    import DeviceImage from '../../assets/render0.5.png'
+    import DeviceImage from '../../assets/render.png'
     export let data
     let { backend_uri, session } = data;
     let account
