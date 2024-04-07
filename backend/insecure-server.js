@@ -17,15 +17,20 @@ app.set('socket', io)
 
 //app.use('/api/iot', require('./routes/iot'))
 app.use('/api/auth', require('./routes/auth'))
-app.post('/api/iot/createRecord', (req, res) => {
+app.post('/api/iot/createRecord', async (req, res) => {
   const { data, id } = req.body
-  fetch('https://blessingsoft.ddns.net:3000/api/iot/createRecord', {
-    method: 'POST',
-    body: {data: data, id: id},
-    headers: {
-      'content-type': 'application/json'
-    },
-  })
+  try {
+    await fetch('https://blessingsoft.ddns.net:3000/api/iot/createRecord', {
+      method: 'POST',
+      body: JSON.stringify({data: data, id: id}),
+      headers: {
+        'content-type': 'application/json'
+      },
+    })
+    res.sendStatus(200)
+  } catch {
+    res.sendStatus(500)
+  }
 })
 
 const port = '3001'
