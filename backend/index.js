@@ -9,7 +9,7 @@ const app = express()
 const dotenv = require('dotenv')
 dotenv.config()
 
-const httpServer = process.env.ENV == "DEV" ? http.createServer(app) : https.createServer({key: fs.readFileSync('./privkey.pem'), cert: fs.readFileSync('./cert.pem')}, app);
+const httpServer = process.env.ENV == "DEV" ? http.createServer(app) : https.createServer({key: fs.readFileSync('./privkey.pem'), cert: fs.readFileSync('./cert.pem'), ca: fs.readFileSync('./chain.pem')}, app);
 const io = new Server(httpServer)
 app.use(cors())
 app.use(bodyParser.json())
