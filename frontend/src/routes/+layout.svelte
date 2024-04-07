@@ -41,7 +41,7 @@
     <a href = "/" class = ' text-sky-600 text-2xl font-bold ml-[2rem]'>denki</a>
     <div class = 'flex flex-row justify-evenly min-w-[20rem]'>
       <a href = "/devices" class = 'text-lg font-semibold'>devices</a>
-      <a href = "/usage" class = 'text-lg font-semibold'>usage</a>
+      <a href = "http://18.141.136.158:8000/generateReport?email=test@email.com" class = 'text-lg font-semibold'>usage</a>
       <a href = "/profile" class = 'text-lg font-semibold'>profile</a>
     </div>
   </div>
@@ -63,7 +63,7 @@
 <div class='flex flex-col justify-start md:hidden'> 
   <button class="w-screen h-screen bg-opacity-20 flex flex-col justify-items-center items-center mt-[5rem]" on:click={() => {menuOpen = false}}>
       <a href="/devices" class="text-xl mb-[1rem]"> devices </a>
-      <a href="/usage" class="text-xl mb-[1rem]"> usage </a>
+      <a href="http://18.141.136.158:8000/generateReport?email=test@email.com" class="text-xl mb-[1rem]"> usage </a>
       <a href="/profile" class="text-xl mb-[1rem]"> profile </a>
   </button>
 </div>
