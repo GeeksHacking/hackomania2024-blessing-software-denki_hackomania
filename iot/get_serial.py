@@ -13,6 +13,6 @@ while True:
     line = ser.readline()   # read a byte
     if line:
         string = line.decode()  # convert the byte string to a unicode string
-        num = int(string) # convert the unicode string to an int
+        num = float(string) # convert the unicode string to an int
         requests.post(url, {'id': id, 'data': num})
         
