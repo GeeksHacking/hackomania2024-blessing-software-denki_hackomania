@@ -15,8 +15,18 @@ app.use(cors())
 app.use(bodyParser.json())
 app.set('socket', io)
 
-app.use('/api/iot', require('./routes/iot'))
+//app.use('/api/iot', require('./routes/iot'))
 app.use('/api/auth', require('./routes/auth'))
+app.post('/api/iot/createRecord', (req, res) => {
+  const { data, id } = req.body
+  fetch('https://blessingsoft.ddns.net:3000/api/iot/createRecord', {
+    method: 'POST',
+    body: {data: data, id: id},
+    headers: {
+      'content-type': 'application/json'
+    },
+  })
+})
 
 const port = '3001'
 httpServer.listen(port, (err) => {
