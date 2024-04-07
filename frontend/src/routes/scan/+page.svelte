@@ -1,7 +1,7 @@
 <script>
   import { Html5Qrcode } from 'html5-qrcode'
   import { onMount, onDestroy} from 'svelte'
-  import { Spinner } from 'flowbite-svelte';
+  import { Modal, Spinner } from 'flowbite-svelte';
   import { page } from '$app/stores';
   export let data
   let { backend_uri, session } = data;
@@ -28,6 +28,8 @@
 
   let scanning = false
   let success = true
+  let registerModal = false
+  let successModal = false
 
   let html5Qrcode
   let innerWidth = 0
@@ -92,9 +94,11 @@
                 email:session?.user?.email
             })
           })
-          console.log(registerDevice)
+          
           if(registerDevice.status == 409){
-            alert('device already registered!')
+            registerModal = true
+          }else{
+            successModal = true
           }
       }catch(err){
         alert(err)
@@ -126,6 +130,16 @@
   }
 </style> -->
 <svelte:window bind:innerWidth bind:innerHeight/>
+<!-- device already registered -->
+<Modal title = 'Already Registered!' class='bg-gray-50' bind:open={registerModal} autoclose>
+  <h1>Are you sure it has not been registered?</h1>
+</Modal>
+<Modal title = 'Device Registered!' class='bg-gray-50' bind:open={successModal} autoclose>
+  <h1>Device has been registered! Let's get to tracking!</h1>
+</Modal>
+
+
+
 {#if notLoaded}
 <Spinner/>
 {:else}

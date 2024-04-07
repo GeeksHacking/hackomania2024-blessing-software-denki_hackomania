@@ -60,20 +60,22 @@
   
 </script>
 
+<div class = "flex flex-col justify-center items-center">
 
-<h1 class = 'text-center text-5xl py-5'> welcome back to <span class = 'text-sky-600'>denki.</span></h1>
-
-<div class = 'flex justify-center'>
-    <div class = 'flex flex-col'>
-        <Dashboard type = {'device'} count = {count}/>
-        <Dashboard data = {data} sum = {sum} />
+    <h1 class = 'text-center text-5xl py-5'> welcome back to <span class = 'text-sky-600'>denki.</span></h1>
+    
+    <div class = 'flex flex-col justify-center text-center'>
+        <div class = 'flex flex-col justify-center text-center'>
+            <Dashboard type = {'device'} count = {count}/>
+            <Dashboard data = {data} sum = {sum} />
+        </div>
+    
     </div>
-
+    
+    <Button>
+        <CirclePlusSolid class=" fixed h-[4rem] w-[4rem] bottom-[2rem] right-[1.5rem] text-sky-600 me-4"/> 
+    </Button>
+    <Dropdown class = ' fixed flex flex-col justify-center rounded-md shadow-md p-[1rem] bottom-[6rem] right-[1.5rem]'>
+      <DropdownItem href="/scan" class = 'flex max-w-[25rem]'>QR Code Scanner <img class = 'ml-[1rem]' width='5%' height ='5%' src = {QRIcon} alt = 'QR Icon'> </DropdownItem>
+    </Dropdown>
 </div>
-
-<Button>
-    <CirclePlusSolid class=" fixed h-[4rem] w-[4rem] bottom-[2rem] right-[1.5rem] text-sky-600 me-4"/> 
-</Button>
-<Dropdown class = ' fixed flex flex-col justify-center rounded-md shadow-md p-[1rem] bottom-[6rem] right-[1.5rem]'>
-  <DropdownItem href="/scan" class = 'flex max-w-[25rem]'>QR Code Scanner <img class = 'ml-[1rem]' width='5%' height ='5%' src = {QRIcon} alt = 'QR Icon'> </DropdownItem>
-</Dropdown>

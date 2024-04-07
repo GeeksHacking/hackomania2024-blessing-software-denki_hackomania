@@ -52,7 +52,7 @@
       <Menu size={"2rem"}/>
     </button>
     <div class="flex-grow flex justify-center items-center ">
-      <a href="/" class="text-sky-600 text-xl font-semibold">denki</a>
+      <a href="/" class="text-sky-600 text-xl font-semibold mr-[3rem]">denki</a>
     </div>
   </div>
   {/if}

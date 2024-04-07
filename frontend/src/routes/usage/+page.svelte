@@ -44,6 +44,6 @@ import { onMount, onDestroy} from 'svelte'
     <Spinner color = 'blue'/>
     {:else}
     <h1 class = "font-semibold text-2xl text-center pt-[2rem]"> overall usage report </h1>
-    <iframe src={`https://drive.google.com/viewerng/viewer?embedded=true&url=${pdfURL}`} style="width:718px; height:700px;" frameborder="0"></iframe>
+    <a href = {pdfURL}>download pdf</a>
 
 {/if}
