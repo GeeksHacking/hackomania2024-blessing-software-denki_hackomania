@@ -48,7 +48,7 @@ module.exports = {
     try {
       const response = await pool.query(`SELECT iot_user.email FROM iot_user JOIN iot_device ON iot_device.email = iot_user.email WHERE iot_device.id = $1`, [id])
       return response.rows[0].email
-    } catch {
+    } catch (err) {
       console.log(err)
     }
   },
