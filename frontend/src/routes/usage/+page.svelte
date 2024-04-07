@@ -7,8 +7,9 @@ import { onMount, onDestroy} from 'svelte'
   let { backend_uri, session } = data;
   let account;
   let notLoaded = true
+  let htmlContent
   let graphGenerated = false
-  let pdfURL = "http://18.141.136.158:8000/generateReport/A123"
+
   const getProfile = async () => {
     const response = await fetch(
       `${backend_uri}:3000/api/auth/getUser?email=${session?.user?.email}`
@@ -18,17 +19,20 @@ import { onMount, onDestroy} from 'svelte'
     notLoaded = false
   };
 
-//   const getReport = async() => {
-//     const response = await fetch(`http://18.141.136.158:8000/generateReport/A123`,{
-//         method:'GET'
-//     })
-//     console.log(response)
-//     graphGenerated = true
-//   }
+  const getReport = async() => {
+    const response = await fetch(`http://blessingsoft.ddns.net:8000/generateReport?email=test@email.com`,{
+        method:'GET'
+    })
+    console.log(response)
+    htmlContent = response
+    console.log(htmlContent)
+    graphGenerated = true
+  }
 
   onMount(async () => {
 		if (session != undefined) {
 			await getProfile();
+      await getReport()
             notLoaded = false
             // await getReport();
 		} else {
@@ -44,6 +48,6 @@ import { onMount, onDestroy} from 'svelte'
     <Spinner color = 'blue'/>
     {:else}
     <h1 class = "font-semibold text-2xl text-center pt-[2rem]"> overall usage report </h1>
-    <a href = {pdfURL}>download pdf</a>
-
+    
+  {@html htmlContent}
 {/if}
