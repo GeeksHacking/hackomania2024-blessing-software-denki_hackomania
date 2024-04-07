@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request
+from flask_cors import CORS
 import psycopg2
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -7,6 +8,7 @@ import base64
 from statsmodels.tsa.seasonal import seasonal_decompose
 
 app = Flask(__name__)
+CORS(app)
 
 engine = psycopg2.connect(
     dbname="postgres",
