@@ -1,0 +1,7 @@
+pandas
+matplotlib
+statsmodels
+psycopg2-binary
+gunicorn
+fpdf
+flask

@@ -1,9 +1,12 @@
-from flask import Flask, send_file
+from flask import Flask, render_template, request
 import psycopg2
 import pandas as pd
 import matplotlib.pyplot as plt
+import io
+import base64
 from statsmodels.tsa.seasonal import seasonal_decompose
-from PDF import PDF
+
+app = Flask(__name__)
 
 engine = psycopg2.connect(
     dbname="postgres",
@@ -14,9 +17,7 @@ engine = psycopg2.connect(
 
 cur = engine.cursor()
 
-cur.execute("SELECT * FROM test_data")
-
-def plot(x, y, name: str):
+def plot_graph(x, y, name: str):
     plt.figure(figsize=(12, 4))
     plt.grid(color='#F2F2F2', alpha=1, zorder=0)
     plt.plot(x, y, color='#087E8B', lw=3, zorder=5)
@@ -25,18 +26,20 @@ def plot(x, y, name: str):
     plt.xticks(fontsize=9)
     plt.ylabel('Watts', fontsize=13)
     plt.yticks(fontsize=9)
-    plt.savefig(f'temp/{name}.png', dpi=300, bbox_inches='tight', pad_inches=0)
+
+    img_buffer = io.BytesIO()
+    plt.savefig(img_buffer, format='png')
+    img_buffer.seek(0)    
     plt.close()
+    return base64.b64encode(img_buffer.getvalue()).decode()
 
-app = Flask(__name__)
 
-@app.route('/generateReport/<id>', methods=['GET'])
-def make_report(id):
-    # cur.execute("SELECT * FROM test_data, user where user.id = %s", (id,))
-    cur.execute("SELECT * FROM test_data")
-    records = cur.fetchall()
+@app.route('/generateReport', methods=['GET'])
+def make_rep():
+    email = request.args.get('email')
 
-    df = pd.DataFrame([(dt, data) for _, data, dt in records])
+    cur.execute("SELECT iot_data.timestamp, iot_data.data FROM iot_data, iot_user where iot_user.email = %s", (email, ))
+    df = pd.DataFrame(cur.fetchall())
     df.columns = ['time', 'data']
 
     tdi = pd.DatetimeIndex(df['time'])
@@ -45,15 +48,11 @@ def make_report(id):
 
     result = seasonal_decompose(df, period=12)
 
-    plot(result.observed.index, result.observed, 'original')
-    plot(result.seasonal.index, result.seasonal, 'seasonal')
-    plot(result.trend.index, result.trend, 'trend')
+    original_img = plot_graph(result.observed.index, result.observed, 'original')
+    season_img = plot_graph(result.seasonal.index, result.seasonal, 'seasonal')
+    trend_img = plot_graph(result.trend.index, result.trend, 'trend')
 
-    pdf_maker = PDF()
-    pdf_maker.print_page(['temp/original.png', 'temp/seasonal.png', 'temp/trend.png'])
-
-    pdf_maker.output('temp/report.pdf', 'F')
-    return send_file('temp/report.pdf', as_attachment=True, download_name='report.pdf')
+    return render_template('report.html', imgs=[original_img, season_img, trend_img])
 
 if __name__ == "__main__":
     app.run()
