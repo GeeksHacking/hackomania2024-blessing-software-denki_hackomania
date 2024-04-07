@@ -15,4 +15,5 @@ while True:
         string = line.decode()  # convert the byte string to a unicode string
         num = float(string) # convert the unicode string to an int
         requests.post(url, {'id': id, 'data': num})
+    ser.close()
         
