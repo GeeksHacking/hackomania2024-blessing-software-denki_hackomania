@@ -1,11 +1,12 @@
 const express = require('express')
 const http = require("http")
+const https = require("https")
 const { Server } = require("socket.io");
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const app = express()
 
-const httpServer = http.createServer(app)
+const httpServer = process.env.ENV == "DEV" ? http.createServer(app) : https.createServer({key: fs.readFileSync('./privkey.pem'), cert: fs.readFileSync('./cert.pem')}, app);
 const io = new Server(httpServer)
 app.use(cors())
 app.use(bodyParser.json())
